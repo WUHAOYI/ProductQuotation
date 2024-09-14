@@ -1,0 +1,22 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://47.121.176.15:3306/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
+      username: root
+      password: why666
+      driver-class-name: com.mysql.jdbc.Driver
+
+# mybatis-plus???
+mybatis-plus:
+  configuration:
+    shrink-whitespaces-in-sql: true
+  type-aliases-package: com.why.pojo
+  global-config:
+    db-config:
+      logic-delete-field: deleted
