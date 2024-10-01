@@ -1,8 +1,7 @@
 package com.program.projectquotation.controller;
 
-import com.program.projectquotation.pojo.User;
 import com.program.projectquotation.result.Result;
-import com.program.projectquotation.service.UserService;
+import com.program.projectquotation.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,20 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by WHY on 2024/9/14.
+ * Created by WHY on 2024/9/27.
  * Functions:
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("category")
 @CrossOrigin
-public class UserController {
-
+public class CategoryController {
     @Autowired
-    private UserService userService;
+    private CategoryService categoryService;
 
     @GetMapping()
-    public Result getUserInfo(){
-        return userService.getUserInfo();
+    public Result getAllCategories() {
+        return categoryService.getAllCategories();
     }
-
 }

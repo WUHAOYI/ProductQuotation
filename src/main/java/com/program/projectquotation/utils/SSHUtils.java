@@ -14,21 +14,25 @@ public class SSHUtils {
      * @param fileName 文件名
      * @throws Exception
      */
-    public static void sftp(byte[] fileBytes,String fileName) throws Exception{
-        String ip = "hadoop104"; //ip地址
-        String username = "why"; //用户名
-        String password = "loveq1314"; //密码
+    public static void sftp(byte[] fileBytes,String fileName, String type) throws Exception{
+        String ip = "13.213.71.33"; //ip地址
+        String username = "ubuntu"; //用户名
+        String privateKey = "src/main/resources/static/key/Project.pem";
+//        String password = "loveq1314"; //密码
         int port = 22; //端口号
-        String filePath = "/usr/local/nginx/html/avatars"; //文件路径
+        String filePath = "/opt/resources/" + type; //文件路径
 
         JSch jsch = new JSch();
+
+        // 使用 PEM 文件作为私钥
+        jsch.addIdentity(privateKey);
 
         //创建session连接
         Session session = jsch.getSession(username, ip ,port);
         if (session == null) {
             throw new Exception("session create error");
         }
-        session.setPassword(password);//设置密码
+//        session.setPassword(password);//设置密码
         session.setConfig("StrictHostKeyChecking", "no"); //设置登陆提示为"no"
         session.connect(1000); //设置超时时间
 

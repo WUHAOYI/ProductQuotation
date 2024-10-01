@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.program.projectquotation.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.program.projectquotation.pojo.Category">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+            <result property="categoryLevel" column="category_level" jdbcType="INTEGER"/>
+            <result property="superiorCategoryId" column="superior_category_id" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,category_name,category_level,
+        superior_category_id,create_time,update_time
+    </sql>
+
+    <!-- 查询所有目录信息，限定只返回 id 和 category_name -->
+    <select id="selectCategoryBasicInfo" resultType="com.program.projectquotation.pojo.Category">
+        SELECT id, category_name
+        FROM category
+        WHERE category_level = 1
+    </select>
+
+    <!-- 查询指定 superior_category_id 下的子目录，返回 id 和 category_name -->
+    <select id="selectChildrenCategories" resultType="com.program.projectquotation.pojo.Category">
+        SELECT id, category_name
+        FROM category
+        WHERE superior_category_id = #{superiorCategoryId}
+    </select>
+</mapper>

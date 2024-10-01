@@ -4,6 +4,9 @@ server:
     context-path: /
 
 spring:
+  web:
+    resources:
+      static-locations: classpath:/static/,file:/opt/resources/images/,file:/opt/resources/videos/
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
@@ -16,7 +19,6 @@ spring:
 mybatis-plus:
   configuration:
     shrink-whitespaces-in-sql: true
+#    auto-mapping-behavior: NONE
+#    call-setters-on-nulls: true
   type-aliases-package: com.why.pojo
-  global-config:
-    db-config:
-      logic-delete-field: deleted
