@@ -4,6 +4,7 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
+import com.program.projectquotation.common.StaticParamsCommon;
 
 import java.io.OutputStream;
 
@@ -15,12 +16,13 @@ public class SSHUtils {
      * @throws Exception
      */
     public static void sftp(byte[] fileBytes,String fileName, String type) throws Exception{
-        String ip = "13.213.71.33"; //ip地址
-        String username = "ubuntu"; //用户名
-        String privateKey = "src/main/resources/static/key/Project.pem";
-//        String password = "loveq1314"; //密码
-        int port = 22; //端口号
-        String filePath = "/opt/resources/" + type; //文件路径
+        //获取配置文件信息
+        String ip = StaticParamsCommon.IP;
+        String username = StaticParamsCommon.USERNAME;
+        String privateKey = StaticParamsCommon.PRIVATE_KEY;
+        int port = StaticParamsCommon.PORT;
+        String filePath = StaticParamsCommon.FILE_PATH + type;
+
 
         JSch jsch = new JSch();
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.program.projectquotation.mapper.ProductOptionsMapper">
+
+    <resultMap id="BaseResultMap" type="com.program.projectquotation.pojo.ProductOptions">
+            <result property="productId" column="product_id" jdbcType="INTEGER"/>
+            <result property="productOptionName" column="product_option_name" jdbcType="VARCHAR"/>
+            <result property="productOptionInfo" column="product_option_info" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        product_id,product_option_name,product_option_info,
+        create_time,update_time
+    </sql>
+</mapper>

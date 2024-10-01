@@ -15,6 +15,12 @@ public class Result<T> {
             result.setData(data);
         return result;
     }
+    public static <T> Result<T> build(ResultCodeEnum resultCodeEnum) {
+        Result<T> result = new Result<T>();
+        result.setCode(resultCodeEnum.getCode());
+        result.setMessage(resultCodeEnum.getMessage());
+        return result;
+    }
     public static <T> Result<T> build(T body, Integer code, String message) {
         Result<T> result = build(body);
         result.setCode(code);
