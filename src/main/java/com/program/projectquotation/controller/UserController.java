@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * Created by WHY on 2024/9/14.
@@ -28,30 +29,31 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    public Result getUserInfo(){
+    public Result getUserInfo() {
         return userService.getUserInfo();
     }
 
     @PutMapping()
     public Result updateUserInfo(@RequestParam("username") String username,
-                                 @RequestParam("fileName") String fileName,
-                                 @RequestParam("avatarFile") MultipartFile avatarFile){
-        if (avatarFile.isEmpty()) {
-            return Result.build(ResultCodeEnum.UPLOAD_VIDEO_ERROR);
+                                 @RequestPart(required = false) String fileName,
+                                 @RequestPart(required = false) MultipartFile avatarFile) {
+        User user = new User();
+        user.setUsername(username);
+        //允许不上传头像，只修改用户名
+        if (!Objects.isNull(avatarFile) && !avatarFile.isEmpty()) {
+            try {
+                byte[] bytes = avatarFile.getBytes();
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                fileName = timestamp.getTime() + "_" + fileName + ".png";
+                SSHUtils.sftp(bytes, fileName, "images");
+                user.setAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
+                return userService.updateUserInfo(user);
+            } catch (Exception e) {
+                log.error("updateUserInfo error", e);
+                return Result.build(ResultCodeEnum.UPLOAD_VIDEO_ERROR);
+            }
         }
-        try {
-            byte[] bytes = avatarFile.getBytes();
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            fileName = timestamp.getTime() + "_" + fileName + ".png";
-            SSHUtils.sftp(bytes, fileName, "images");
-            User user = new User();
-            user.setUsername(username);
-            user.setAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
-            return userService.updateUserInfo(user);
-        } catch (Exception e) {
-            log.error("updateUserInfo error", e);
-            return Result.build(ResultCodeEnum.UPLOAD_VIDEO_ERROR);
-        }
+        return userService.updateUserInfo(user);
     }
 
 }

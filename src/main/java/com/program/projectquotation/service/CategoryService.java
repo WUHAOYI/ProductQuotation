@@ -11,4 +11,10 @@ import com.program.projectquotation.result.Result;
 */
 public interface CategoryService extends IService<Category> {
     public Result getAllCategories();
+
+    public Result createCategory(Category category);
+
+    public Result updateCategory(Category category);
+
+    public Result deleteCategory(Integer id);
 }

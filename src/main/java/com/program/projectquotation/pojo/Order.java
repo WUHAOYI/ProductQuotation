@@ -5,40 +5,32 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 商品详情表（存储商品详情界面展示的多张图片）
- * @TableName product_detail
+ * 
+ * @TableName order
  */
-@TableName(value ="product_detail")
+@TableName(value ="`order`")
 @Data
-public class ProductDetail implements Serializable {
+public class Order implements Serializable {
     /**
-     * 商品id
+     * 订单id
      */
-    private Integer productId;
+    @TableId
+    private String id;
 
     /**
-     * 商品详情图片链接
-     */
-    private String productDetail;
-
-    /**
-     * 商品详情图片名称
-     */
-    private String productDetailName;
-
-    /**
-     * 创建时间
+     * 订单创建时间
      */
     private Date createTime;
 
     /**
-     * 更新时间
+     * 订单总价
      */
-    private Date updateTime;
+    private BigDecimal orderPrice;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

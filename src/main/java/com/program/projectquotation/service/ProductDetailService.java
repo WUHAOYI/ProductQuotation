@@ -2,6 +2,7 @@ package com.program.projectquotation.service;
 
 import com.program.projectquotation.pojo.ProductDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.program.projectquotation.result.Result;
 
 import java.util.List;
 
@@ -12,4 +13,11 @@ import java.util.List;
 */
 public interface ProductDetailService extends IService<ProductDetail> {
     public List<String> getProductDetails(int productId);
+
+    public Result uploadProductDetails(List<ProductDetail> productDetails);
+
+    public Result deleteProductDetail(int productId,String imageName);
+
+    //批量删除
+    public Result deleteProductDetailBatch(int productId);
 }

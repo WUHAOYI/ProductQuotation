@@ -5,14 +5,16 @@
 <mapper namespace="com.program.projectquotation.mapper.ProductDetailMapper">
 
     <resultMap id="BaseResultMap" type="com.program.projectquotation.pojo.ProductDetail">
-            <result property="productId" column="product_id" jdbcType="INTEGER"/>
-            <result property="productDetail" column="product_detail" jdbcType="VARCHAR"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="productId" column="product_id" jdbcType="INTEGER"/>
+        <result property="productDetail" column="product_detail" jdbcType="VARCHAR"/>
+        <result property="productDetailName" column="product_detail_name" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        product_id,product_detail,create_time,
+        product_id
+        ,product_detail,product_detail_name,create_time,
         update_time
     </sql>
 </mapper>

@@ -1,0 +1,28 @@
+一级目录1：
+    二级目录1：
+        三级目录1 id:6
+        三级目录2 id:7
+    二级目录2：
+        三级目录3 id:8
+        三级目录4 id:9
+一级目录2： 
+    二级目录3：
+        三级目录5 id:10
+
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(6,'测试商品1',5.5,5.5,'https://images.unsplash.com/photo-1499346030926-9a72daac6c63','测试商品1');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(7,'测试商品2',6.5,6.5,'https://images.unsplash.com/photo-1499346030926-9a72daac6c63','测试商品2');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(8,'测试商品3',7.5,7.5,'https://images.unsplash.com/photo-1499346030926-9a72daac6c63','测试商品3');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(9,'测试商品4',8.5,8.5,'https://images.unsplash.com/photo-1499346030926-9a72daac6c63','测试商品4');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(10,'测试商品5',9.5,9.5,'https://images.unsplash.com/photo-1499346030926-9a72daac6c63','测试商品5');
+
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(6,'测试商品6',5.5,16.5,'https://images.unsplash.com/photo-1470770841072-f978cf4d019e','测试商品6');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(7,'测试商品7',6.5,7.5,'https://images.unsplash.com/photo-1470770841072-f978cf4d019e','测试商品7');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(8,'测试商品8',1.5,8.5,'https://images.unsplash.com/photo-1470770841072-f978cf4d019e','测试商品8');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(9,'测试商品9',5,9,'https://images.unsplash.com/photo-1470770841072-f978cf4d019e','测试商品9');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(10,'测试商品10',19.5,20.5,'https://images.unsplash.com/photo-1470770841072-f978cf4d019e','测试商品10');
+
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(6,'测试商品11',10,10,'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3','测试商品11');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(7,'测试商品12',11,11,'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3','测试商品12');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(8,'测试商品13',12,12,'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3','测试商品13');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(9,'测试商品14',13,13,'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3','测试商品14');
+insert into product(category_id,product_name,product_low_price,product_high_price,product_avatar,product_intro) values(10,'测试商品15',14,14,'https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3','测试商品15');

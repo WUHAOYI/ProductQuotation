@@ -49,8 +49,52 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
             }
             return Result.build(categoryDTOs, ResultCodeEnum.GET_CATEGORY_SUCCESS);
         } catch (Exception e) {
-            log.error("获取商品目录失败", e);
+            log.error("get category failed", e);
             return Result.build(null, ResultCodeEnum.GET_CATEGORY_ERROR);
+        }
+    }
+
+    /**
+     * 创建商品目录
+     * @param category
+     * @return
+     */
+    @Override
+    public Result createCategory(Category category) {
+        try {
+            categoryMapper.insert(category);
+            return Result.build(null, ResultCodeEnum.CREATE_CATEGORY_SUCCESS);
+        } catch (Exception e) {
+            log.error("create category failed", e);
+            return Result.build(null, ResultCodeEnum.CREATE_CATEGORY_ERROR);
+        }
+    }
+
+    @Override
+    public Result updateCategory(Category category) {
+        try {
+            int update = categoryMapper.updateById(category);
+            if (update == 0) {
+                return Result.build(null, ResultCodeEnum.UPDATE_CATEGORY_ERROR);
+            }
+            return Result.build(null, ResultCodeEnum.UPDATE_CATEGORY_SUCCESS);
+        } catch (Exception e) {
+            log.error("update category failed", e);
+            return Result.build(null, ResultCodeEnum.UPDATE_CATEGORY_ERROR);
+        }
+    }
+
+    @Override
+    public Result deleteCategory(Integer id) {
+        try {
+            int delete = categoryMapper.deleteById(id);
+            if (delete == 0) {
+                return Result.build(null, ResultCodeEnum.DELETE_CATEGORY_ERROR);
+            }
+            return Result.build(null, ResultCodeEnum.DELETE_CATEGORY_SUCCESS);
+        } catch (Exception e) {
+            log.error("delete category failed", e);
+            return Result.build(null, ResultCodeEnum.DELETE_CATEGORY_ERROR);
         }
     }
 

@@ -2,6 +2,7 @@ package com.program.projectquotation.service;
 
 import com.program.projectquotation.pojo.ProductOptions;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.program.projectquotation.result.Result;
 
 import java.util.Map;
 
@@ -12,4 +13,12 @@ import java.util.Map;
 */
 public interface ProductOptionsService extends IService<ProductOptions> {
     public Map<String,String> getProductOptions(int productId);
+
+    public Result createProductOptions(ProductOptions productOptions);
+
+    public Result updateProductOptions(ProductOptions productOptions,String oldOptionName);
+
+    public Result deleteProductOptions(int productId,String productOptionName);
+
+    public Result deleteProductOptionsBatch(int productId);
 }

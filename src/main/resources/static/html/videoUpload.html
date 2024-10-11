@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload</title>
+</head>
+<body>
+    <h2>Upload Video</h2>
+
+    <!-- Form to upload video -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="videoName">Video Name:</label><br>
+        <input type="text" id="videoName" name="videoName" required><br><br>
+
+        <label for="videoFile">Choose Video:</label><br>
+        <input type="file" id="videoFile" name="videoFile" accept="video/*" required><br><br>
+
+        <button type="submit">Upload</button>
+    </form>
+
+    <p id="responseMessage"></p>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const videoName = document.getElementById('videoName').value;
+            const videoFile = document.getElementById('videoFile').files[0];
+            const formData = new FormData();
+            formData.append('videoName', videoName);
+            formData.append('videoFile', videoFile);
+
+            fetch('http://localhost:8888/video', {  // Replace with your backend URL
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('responseMessage').textContent = data.message;
+            })
+            .catch(error => {
+                document.getElementById('responseMessage').textContent = 'Upload failed!';
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

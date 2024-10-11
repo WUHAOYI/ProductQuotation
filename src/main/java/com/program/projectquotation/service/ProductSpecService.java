@@ -2,7 +2,9 @@ package com.program.projectquotation.service;
 
 import com.program.projectquotation.pojo.ProductSpec;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.program.projectquotation.result.Result;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,4 +14,13 @@ import java.util.Map;
 */
 public interface ProductSpecService extends IService<ProductSpec> {
     public Map<String,String> getProductSpec(int productId);
+
+    public Result createProductSpec(ProductSpec productSpec);
+
+    public Result updateProductSpec(ProductSpec productSpec,String oldSpecName);
+
+    public Result deleteProductSpec(int productId,String productSpecName);
+
+    //批量删除
+    public Result deleteProductSpecBatch(int productId);
 }

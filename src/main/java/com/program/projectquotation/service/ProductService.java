@@ -16,4 +16,9 @@ public interface ProductService extends IService<Product> {
 
     public Product getProductDetail(int productId);
 
+    public Result createProduct(Product product);
+
+    public Result updateProduct(Product product);
+
+    public Result deleteProduct(int productId);
 }

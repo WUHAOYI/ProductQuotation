@@ -46,9 +46,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public Result updateUserInfo(User user) {
         try {
             User userOnly = userMapper.selectOne(null);
-            userOnly.setAvatar(user.getAvatar());
+            if (!"".equals(user.getAvatar())) {
+                userOnly.setAvatar(user.getAvatar());
+            }
             userOnly.setUsername(user.getUsername());
-            int update = userMapper.update(user,null);
+            int update = userMapper.update(user, null);
             if (update > 0)
                 return Result.build(null, ResultCodeEnum.UPDATE_USER_SUCCESS);
             return Result.build(null, ResultCodeEnum.UPDATE_USER_ERROR);

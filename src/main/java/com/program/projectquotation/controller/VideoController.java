@@ -45,7 +45,7 @@ public class VideoController {
 
     /**
      * 上传视频
-     * @param videoName 视频名称
+     * @param fileName 视频名称
      * @param videoFile 视频文件
      * @return
      */
