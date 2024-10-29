@@ -45,7 +45,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
                     .collect(Collectors.toList());
             // 设置子目录
             for (CategoryDTO categoryDTO : categoryDTOs) {
-                categoryDTO.setChildren(getChildrenDTO(categoryDTO.getId()));
+                List<CategoryDTO> childrenDTO = getChildrenDTO(categoryDTO.getId());
+                if (!childrenDTO.isEmpty()) {
+                    categoryDTO.setChildren(childrenDTO);
+                }
             }
             return Result.build(categoryDTOs, ResultCodeEnum.GET_CATEGORY_SUCCESS);
         } catch (Exception e) {
@@ -70,6 +73,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         }
     }
 
+    /**
+     * 更新商品目录
+     * @param category
+     * @return
+     */
     @Override
     public Result updateCategory(Category category) {
         try {
@@ -84,6 +92,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         }
     }
 
+    /**
+     * 删除商品目录
+     * @param id
+     * @return
+     */
     @Override
     public Result deleteCategory(Integer id) {
         try {

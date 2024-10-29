@@ -36,9 +36,15 @@ public class UserController {
     @PutMapping()
     public Result updateUserInfo(@RequestParam("username") String username,
                                  @RequestPart(required = false) String fileName,
-                                 @RequestPart(required = false) MultipartFile avatarFile) {
+                                 @RequestPart(required = false) MultipartFile avatarFile,
+                                 @RequestParam("phone") String phone,
+                                 @RequestParam("location") String location,
+                                 @RequestParam("intro") String intro) {
         User user = new User();
         user.setUsername(username);
+        user.setPhone(phone);
+        user.setLocation(location);
+        user.setIntro(intro);
         //允许不上传头像，只修改用户名
         if (!Objects.isNull(avatarFile) && !avatarFile.isEmpty()) {
             try {

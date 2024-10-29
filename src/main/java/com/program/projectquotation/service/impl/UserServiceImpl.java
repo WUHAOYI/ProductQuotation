@@ -50,6 +50,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 userOnly.setAvatar(user.getAvatar());
             }
             userOnly.setUsername(user.getUsername());
+            userOnly.setPhone(user.getPhone());
+            userOnly.setLocation(user.getLocation());
+            userOnly.setIntro(user.getIntro());
             int update = userMapper.update(user, null);
             if (update > 0)
                 return Result.build(null, ResultCodeEnum.UPDATE_USER_SUCCESS);

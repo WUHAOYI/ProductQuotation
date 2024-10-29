@@ -24,6 +24,21 @@ public class User implements Serializable {
      */
     private String avatar;
 
+    /**
+     * 用户电话
+     */
+    private String phone;
+
+    /**
+     * 地址
+     */
+    private String location;
+
+    /**
+     * 简介
+     */
+    private String intro;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

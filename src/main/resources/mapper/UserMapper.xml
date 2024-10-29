@@ -5,11 +5,18 @@
 <mapper namespace="com.program.projectquotation.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.program.projectquotation.pojo.User">
-            <result property="username" column="username" jdbcType="VARCHAR"/>
-            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="location" column="location" jdbcType="VARCHAR"/>
+        <result property="intro" column="intro" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        username,avatar
+        username
+        ,avatar
+        ,phone
+        ,location
+        ,intro
     </sql>
 </mapper>
