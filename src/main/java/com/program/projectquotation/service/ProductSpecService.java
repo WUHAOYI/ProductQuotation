@@ -13,7 +13,7 @@ import java.util.Map;
 * @createDate 2024-10-01 17:19:54
 */
 public interface ProductSpecService extends IService<ProductSpec> {
-    public Map<String,String> getProductSpec(int productId);
+    public List<Map<String,String>> getProductSpec(int productId);
 
     public Result createProductSpec(ProductSpec productSpec);
 

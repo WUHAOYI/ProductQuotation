@@ -11,6 +11,7 @@ import com.program.projectquotation.mapper.ProductSpecMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +29,20 @@ public class ProductSpecServiceImpl extends ServiceImpl<ProductSpecMapper, Produ
     private ProductSpecMapper productSpecMapper;
 
     @Override
-    public Map<String, String> getProductSpec(int productId) {
+    public List<Map<String,String>> getProductSpec(int productId) {
         LambdaQueryWrapper<ProductSpec> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ProductSpec::getProductId, productId);
-        HashMap<String, String> res = new HashMap<>();
+        List<Map<String,String>> res = new ArrayList<>();
         try {
             List<ProductSpec> productSpecs = productSpecMapper.selectList(wrapper);
             if (productSpecs == null || productSpecs.isEmpty()) {
                 return null;
             }
             for (ProductSpec productSpec : productSpecs) {
-                res.put(productSpec.getProductSpecName(), productSpec.getProductSpecValue());
+                Map<String, String> children = new HashMap<>();
+                children.put("name",productSpec.getProductSpecName());
+                children.put("value",productSpec.getProductSpecValue());
+                res.add(children);
             }
             return res;
         } catch (Exception e) {

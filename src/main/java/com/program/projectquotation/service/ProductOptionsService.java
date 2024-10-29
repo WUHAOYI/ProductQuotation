@@ -4,6 +4,7 @@ import com.program.projectquotation.pojo.ProductOptions;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.program.projectquotation.result.Result;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Map;
 * @createDate 2024-10-01 17:19:54
 */
 public interface ProductOptionsService extends IService<ProductOptions> {
-    public Map<String,String> getProductOptions(int productId);
+    public List<Map<String,String>> getProductOptions(int productId);
 
     public Result createProductOptions(ProductOptions productOptions);
 

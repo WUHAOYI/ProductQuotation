@@ -11,6 +11,7 @@ import com.program.projectquotation.mapper.ProductOptionsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,17 +29,20 @@ public class ProductOptionsServiceImpl extends ServiceImpl<ProductOptionsMapper,
     private ProductOptionsMapper productOptionsMapper;
 
     @Override
-    public Map<String, String> getProductOptions(int productId) {
+    public List<Map<String, String>> getProductOptions(int productId) {
         LambdaQueryWrapper<ProductOptions> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ProductOptions::getProductId, productId);
-        HashMap<String, String> res = new HashMap<>();
+        List<Map<String, String>> res = new ArrayList<>();
         try {
             List<ProductOptions> productOptions = productOptionsMapper.selectList(wrapper);
             if (productOptions == null || productOptions.isEmpty()) {
                 return null;
             }
             for (ProductOptions productOption : productOptions) {
-                res.put(productOption.getProductOptionName(), productOption.getProductOptionInfo());
+                Map<String, String> children = new HashMap<>();
+                children.put("name", productOption.getProductOptionName());
+                children.put("info", productOption.getProductOptionInfo());
+                res.add(children);
             }
             return res;
         } catch (Exception e) {

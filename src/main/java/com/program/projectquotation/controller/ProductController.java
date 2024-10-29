@@ -94,8 +94,8 @@ public class ProductController {
         try {
             Product product = productService.getProductDetail(productId);
             List<String> productDetails = productDetailService.getProductDetails(productId);
-            Map<String, String> productSpecs = productSpecService.getProductSpec(productId);
-            Map<String, String> productOptions = productOptionsService.getProductOptions(productId);
+            List<Map<String,String>> productSpecs = productSpecService.getProductSpec(productId);
+            List<Map<String,String>> productOptions = productOptionsService.getProductOptions(productId);
             res.put("id", product.getId());
             res.put("name", product.getProductName());
             res.put("lowPrice", product.getProductLowPrice());
