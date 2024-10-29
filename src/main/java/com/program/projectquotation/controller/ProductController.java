@@ -48,26 +48,38 @@ public class ProductController {
      * @param size
      * @return
      */
-    @GetMapping("/all")
-    public Result getProducts(@RequestParam("page") int page,
-                              @RequestParam("size") int size) {
-        return productService.getProducts(page, size);
-    }
+//    @GetMapping("/all")
+//    public Result getProducts(@RequestParam("page") int page,
+//                              @RequestParam("size") int size) {
+//        return productService.getProducts(page, size);
+//    }
 
     /**
-     * 根据目录id获取产品
+     * 根据目录id和产品名称获取产品
      *
      * @param categoryId
+     * @param productName
      * @param page
      * @param size
      * @return
      */
-    @GetMapping("/category")
-    public Result getProductsById(@RequestParam("categoryId") int categoryId,
-                                  @RequestParam("page") int page,
-                                  @RequestParam("size") int size) {
-        return productService.getProductsById(categoryId, page, size);
+    @GetMapping("/query")
+    public Result getProductsByIdName(@RequestParam(value = "categoryId", required = false) Integer categoryId,
+                                      @RequestParam(value = "productName", required = false) String productName,
+                                      @RequestParam("page") int page,
+                                      @RequestParam("size") int size,
+                                      @RequestParam("newFlag") Integer newFlag) {
+        if (Objects.isNull(categoryId) && Objects.isNull(productName)) {
+            return productService.getProducts(page, size, newFlag);
+        } else if (Objects.isNull(categoryId) && !Objects.isNull(productName)) {
+            return productService.getProductsByName(productName, page, size, newFlag);
+        } else if (Objects.isNull(productName) && !Objects.isNull(categoryId)) {
+            return productService.getProductsById(categoryId, page, size, newFlag);
+        } else {
+            return productService.getProductsByIdName(categoryId, productName, page, size, newFlag);
+        }
     }
+
 
     /**
      * 获取商品详情
@@ -111,7 +123,7 @@ public class ProductController {
      * @return
      */
     @PostMapping
-    public Result createProduct(@RequestBody @RequestParam("categoryId") Integer categoryId,
+    public Result createProduct(@RequestParam("categoryId") Integer categoryId,
                                 @RequestParam("productName") String productName,
                                 @RequestParam("productLowPrice") Double productLowPrice,
                                 @RequestParam("productHighPrice") Double productHighPrice,
@@ -142,6 +154,7 @@ public class ProductController {
 
     /**
      * 更新商品
+     *
      * @param productId
      * @param categoryId
      * @param productName
@@ -152,7 +165,7 @@ public class ProductController {
      * @return
      */
     @PutMapping
-    public Result updateProduct(@RequestParam ("productId") Integer productId,
+    public Result updateProduct(@RequestParam("productId") Integer productId,
                                 @RequestParam("categoryId") Integer categoryId,
                                 @RequestParam("productName") String productName,
                                 @RequestParam("productLowPrice") Double productLowPrice,

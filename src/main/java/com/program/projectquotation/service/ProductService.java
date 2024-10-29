@@ -10,9 +10,13 @@ import com.program.projectquotation.result.Result;
  * @createDate 2024-10-01 16:37:30
  */
 public interface ProductService extends IService<Product> {
-    public Result getProducts(int page, int size);
+    public Result getProducts(int page, int size,int newFlag);
 
-    public Result getProductsById(int categoryId, int page, int size);
+    public Result getProductsById(int categoryId, int page, int size,int newFlag);
+
+    public Result getProductsByName(String productName, int page, int size,int newFlag);
+
+    public Result getProductsByIdName(int categoryId, String productName, int page, int size,int newFlag);
 
     public Product getProductDetail(int productId);
 
