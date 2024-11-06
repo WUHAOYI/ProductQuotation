@@ -15,4 +15,6 @@ public interface VideoService extends IService<Video> {
     public Result getVideos(int page, int size);
 
     public Result uploadVideo(String id, String link);
+
+    public Result deleteVideo(int id);
 }

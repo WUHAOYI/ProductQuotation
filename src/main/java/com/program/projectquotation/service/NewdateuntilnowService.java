@@ -2,6 +2,7 @@ package com.program.projectquotation.service;
 
 import com.program.projectquotation.pojo.Newdateuntilnow;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.program.projectquotation.result.Result;
 
 /**
 * @author Administrator
@@ -10,4 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface NewdateuntilnowService extends IService<Newdateuntilnow> {
     public int getNewdateuntilnow();
+
+    public Result updateNewdateuntilnow(int time);
 }

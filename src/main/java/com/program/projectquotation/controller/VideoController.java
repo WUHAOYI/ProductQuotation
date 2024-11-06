@@ -59,11 +59,21 @@ public class VideoController {
             byte[] bytes = videoFile.getBytes();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String fileLink = timestamp.getTime() + "_" + fileName + ".mp4";
-            SSHUtils.sftp(bytes, fileName, "videos");
+            SSHUtils.sftp(bytes, fileLink, "videos");
             return videoService.uploadVideo(fileName, StaticParamsCommon.IMAGES_VIDEOS_PATH + fileLink);
         } catch (Exception e) {
             log.error("getVideos error", e);
             return Result.build(ResultCodeEnum.UPLOAD_VIDEO_ERROR);
         }
+    }
+
+    /**
+     * 删除视频
+     * @param videoId 视频id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public Result deleteVideo(@PathVariable("id") int videoId) {
+        return videoService.deleteVideo(videoId);
     }
 }

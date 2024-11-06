@@ -85,13 +85,14 @@ public class SSHUtils {
         JSch jsch = new JSch();
 
         // 使用 PEM 文件作为私钥
-        jsch.addIdentity(privateKey);
+//        jsch.addIdentity(privateKey);
 
         // 创建 session 连接
         Session session = jsch.getSession(username, ip, port);
         if (session == null) {
             throw new Exception("session create error");
         }
+        session.setPassword(password);//设置密码
         session.setConfig("StrictHostKeyChecking", "no"); // 设置登陆提示为"no"
         session.connect(10000); // 设置超时时间
 

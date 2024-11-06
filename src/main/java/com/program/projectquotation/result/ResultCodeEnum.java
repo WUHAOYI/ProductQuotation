@@ -28,6 +28,9 @@ public enum ResultCodeEnum {
     DELETE_PRODUCT_OPTIONS_SUCCESS(20021,"删除商品选项成功"),
     UPDATE_PRODUCT_OPTIONS_SUCCESS(20022,"更新商品选项成功"),
 
+    DELETE_VIDEO_SUCCESS(20023,"删除视频成功"),
+    TIME_UPDATE_SUCCESS(20024,"上新时间更新成功"),
+
     USER_NOT_FOUND(40000, "用户不存在"),
     VIDEO_NOT_FOUND(40002, "视频不存在"),
     PRODUCT_NOT_FOUND(40008, "暂无相关商品"),
@@ -55,7 +58,10 @@ public enum ResultCodeEnum {
     UPDATE_PRODUCT_SPEC_ERROR(50019,"更新商品规格失败"),
     CREATE_PRODUCT_OPTIONS_ERROR(50020,"创建商品选项失败"),
     DELETE_PRODUCT_OPTIONS_ERROR(50021,"删除商品选项失败"),
-    UPDATE_PRODUCT_OPTIONS_ERROR(50022,"更新商品选项失败");
+    UPDATE_PRODUCT_OPTIONS_ERROR(50022,"更新商品选项失败"),
+
+    DELETE_VIDEO_ERROR(50023,"删除视频失败"),
+    TIME_UPDATE_ERROR(50024,"上新时间更新失败"),
     ;
     private Integer code;
     private String message;
