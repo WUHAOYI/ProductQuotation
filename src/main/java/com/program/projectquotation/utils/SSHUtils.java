@@ -38,7 +38,7 @@ public class SSHUtils {
         }
         session.setPassword(password);//设置密码
         session.setConfig("StrictHostKeyChecking", "no"); //设置登陆提示为"no"
-        session.connect(1000); //设置超时时间
+        session.connect(10000); //设置超时时间
 
         //创建通信通道
         Channel channel = (Channel) session.openChannel("sftp");

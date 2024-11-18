@@ -42,7 +42,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video>
             List<Video> videos = videoPage.getRecords();
             Map<String, Object> res = new HashMap<>();
             res.put("videos", videos);
-            long total = videoMapper.selectCount(null);
+            long total = videoMapper.selectCount(null); //获取总数
             res.put("total", total);
             if (Objects.isNull(videos) || videos.isEmpty()) {
                 return Result.build(null, ResultCodeEnum.VIDEO_NOT_FOUND);

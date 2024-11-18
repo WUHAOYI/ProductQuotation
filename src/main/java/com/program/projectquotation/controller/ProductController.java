@@ -101,6 +101,7 @@ public class ProductController {
             res.put("lowPrice", product.getProductLowPrice());
             res.put("highPrice", product.getProductHighPrice());
             res.put("description", product.getProductIntro());
+            res.put("avatar", product.getProductAvatar());
             res.put("images", productDetails);
             res.put("specs", productSpecs);
             res.put("options", productOptions);
@@ -156,7 +157,6 @@ public class ProductController {
      * 更新商品
      *
      * @param productId
-     * @param categoryId
      * @param productName
      * @param productLowPrice
      * @param productHighPrice
@@ -166,7 +166,7 @@ public class ProductController {
      */
     @PutMapping
     public Result updateProduct(@RequestParam("productId") Integer productId,
-                                @RequestParam("categoryId") Integer categoryId,
+//                                @RequestParam("categoryId") Integer categoryId,
                                 @RequestParam("productName") String productName,
                                 @RequestParam("productLowPrice") Double productLowPrice,
                                 @RequestParam("productHighPrice") Double productHighPrice,
@@ -174,13 +174,14 @@ public class ProductController {
                                 @RequestPart(required = false) MultipartFile image) {
         Product product = new Product();
         product.setId(productId);
-        product.setCategoryId(categoryId);
+//        product.setCategoryId(categoryId);
         product.setProductName(productName);
         product.setProductLowPrice(BigDecimal.valueOf(productLowPrice));
         product.setProductHighPrice(BigDecimal.valueOf(productHighPrice));
         product.setProductIntro(productIntro);
-
+        Boolean deleteFlag = false;
         if (!Objects.isNull(image) && !image.isEmpty()) {
+            deleteFlag = true;
             try {
                 byte[] bytes = image.getBytes();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -192,7 +193,7 @@ public class ProductController {
                 return Result.build(null, 50010, "图片传输错误");
             }
         }
-        return productService.updateProduct(product);
+        return productService.updateProduct(product,deleteFlag);
     }
 
     /**
@@ -260,14 +261,19 @@ public class ProductController {
 
 
     /**
-     * 创建商品规格信息
-     *
-     * @param productSpec
+     * 批量创建商品规格信息
      * @return
      */
+    @Transactional
     @PostMapping("/spec")
-    public Result createProductSpec(@RequestBody ProductSpec productSpec) {
-        return productSpecService.createProductSpec(productSpec);
+    public Result createProductSpec(@RequestBody Map<String, List<ProductSpec>> data) {
+        List<ProductSpec> productSpecs = data.get("productSpecs");
+        //创建商品规格信息
+        Result result = productSpecService.createProductSpec(productSpecs);
+        //更新商品最高最低价格
+        int productId = productSpecs.get(0).getProductId();
+        updateProductPrice(productId);
+        return result;
     }
 
     /**
@@ -276,13 +282,17 @@ public class ProductController {
      * @param data
      * @return
      */
+    @Transactional
     @PutMapping("/spec")
     public Result updateProductSpec(@RequestBody Map<String, Object> data) {
         ProductSpec productSpec = new ProductSpec();
         productSpec.setProductId((Integer) data.get("productId"));
         productSpec.setProductSpecName((String) data.get("productSpecName"));
         productSpec.setProductSpecValue((String) data.get("productSpecValue"));
-        return productSpecService.updateProductSpec(productSpec, (String) data.get("productSpecOldName"));
+        Result result = productSpecService.updateProductSpec(productSpec, (String) data.get("productSpecOldName"));
+        //更新商品最高最低价格
+        updateProductPrice(productSpec.getProductId());
+        return result;
     }
 
     /**
@@ -291,23 +301,28 @@ public class ProductController {
      * @param data
      * @return
      */
+    @Transactional
     @DeleteMapping("/spec")
     public Result deleteProductSpec(@RequestBody Map<String, Object> data) {
         int productId = (Integer) data.get("productId");
         String productSpecName = (String) data.get("productSpecName");
-        return productSpecService.deleteProductSpec(productId, productSpecName);
+        String productSpecValue = (String) data.get("productSpecValue");
+        System.out.println(productSpecValue);
+        Result result = productSpecService.deleteProductSpec(productId, productSpecName);
+        //更新商品最高最低价格
+        updateProductPrice(productId,productSpecValue);
+        return result;
     }
 
     //新建，更新，删除商品自定义选项，写代码
 
     /**
      * 创建商品自定义选项
-     *
-     * @param productOptions
      * @return
      */
     @PostMapping("/option")
-    public Result createProductOptions(@RequestBody ProductOptions productOptions) {
+    public Result createProductOptions(@RequestBody  Map<String,List<ProductOptions>> data) {
+        List<ProductOptions> productOptions = data.get("productOptions");
         return productOptionsService.createProductOptions(productOptions);
     }
 
@@ -337,6 +352,27 @@ public class ProductController {
         int productId = (Integer) data.get("productId");
         String productOptionName = (String) data.get("productOptionName");
         return productOptionsService.deleteProductOptions(productId, productOptionName);
+    }
+
+    /**
+     * 更新商品最高最低价格
+     *
+     * @param productId
+     */
+    @Transactional
+    public void updateProductPrice(int productId, String... value) {
+        Map<String, String> maxMinSpec = productSpecService.getMaxMinSpec(productId);
+        Product product = new Product();
+        product.setId(productId);
+        if (maxMinSpec != null) {
+            product.setProductLowPrice(new BigDecimal(maxMinSpec.get("min")));
+            product.setProductHighPrice(new BigDecimal(maxMinSpec.get("max")));
+        }else {
+            System.out.println(value[0]);
+            product.setProductLowPrice(new BigDecimal(value[0]));
+            product.setProductHighPrice(new BigDecimal(value[0]));
+        }
+        productService.updateProduct(product, false);
     }
 
 }

@@ -10,6 +10,7 @@ import com.program.projectquotation.service.ProductOptionsService;
 import com.program.projectquotation.mapper.ProductOptionsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @createDate 2024-10-01 17:19:54
  */
 @Service
+@Transactional
 public class ProductOptionsServiceImpl extends ServiceImpl<ProductOptionsMapper, ProductOptions>
         implements ProductOptionsService {
 
@@ -60,10 +62,10 @@ public class ProductOptionsServiceImpl extends ServiceImpl<ProductOptionsMapper,
      * @return
      */
     @Override
-    public Result createProductOptions(ProductOptions productOptions) {
+    public Result createProductOptions(List<ProductOptions> productOptions) {
         try {
-            int insert = productOptionsMapper.insert(productOptions);
-            if (insert == 0) {
+            boolean saved = saveBatch(productOptions);
+            if (!saved) {
                 return Result.build(null, ResultCodeEnum.CREATE_PRODUCT_OPTIONS_ERROR);
             }
             return Result.build(null, ResultCodeEnum.CREATE_PRODUCT_OPTIONS_SUCCESS);

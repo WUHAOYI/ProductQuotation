@@ -10,6 +10,7 @@ import com.program.projectquotation.mapper.ProductDetailMapper;
 import com.program.projectquotation.utils.SSHUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
  * @createDate 2024-10-01 17:19:54
  */
 @Service
+@Transactional
 public class ProductDetailServiceImpl extends ServiceImpl<ProductDetailMapper, ProductDetail>
         implements ProductDetailService {
 
@@ -119,6 +121,7 @@ public class ProductDetailServiceImpl extends ServiceImpl<ProductDetailMapper, P
             if (!remove) {
                 return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_IMAGE_ERROR);
             }
+            System.out.println("delete product images success");
             return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_IMAGE_SUCCESS);
         } catch (Exception e) {
             log.error("delete product images error when delete product", e);

@@ -13,5 +13,6 @@ import java.util.List;
 public class CategoryDTO {
     private Integer id;
     private String categoryName;
+    private Integer categoryLevel;
     private List<CategoryDTO> children;
 }

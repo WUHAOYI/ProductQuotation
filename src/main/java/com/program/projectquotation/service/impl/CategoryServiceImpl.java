@@ -35,7 +35,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     public Result getAllCategories() {
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
         // 设置查询条件，查询一级目录
-        wrapper.select(Category::getId, Category::getCategoryName)
+        wrapper.select(Category::getId, Category::getCategoryName, Category::getCategoryLevel)
                 .eq(Category::getCategoryLevel, 1);
         try {
             // 获取一级目录
@@ -55,6 +55,29 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
             log.error("get category failed", e);
             return Result.build(null, ResultCodeEnum.GET_CATEGORY_ERROR);
         }
+    }
+
+    /**
+     * 根据目录id获取所有的子目录
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Category> getCategoriesById(int id) {
+        List<Category> res = new ArrayList<>();
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Category::getId, id);
+        Category thisCategory = categoryMapper.selectOne(wrapper);
+        res.add(thisCategory);
+        wrapper.clear();
+        // 设置查询条件，查询子目录
+        wrapper.eq(Category::getSuperiorCategoryId, id);
+        List<Category> categories = categoryMapper.selectList(wrapper);
+        res.addAll(categories);
+        for (Category category : categories) {
+            res.addAll(getCategoriesById(category.getId()));
+        }
+        return res;
     }
 
     /**
@@ -121,7 +144,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
         // 设置查询条件，查询子目录
         wrapper.eq(Category::getSuperiorCategoryId, superiorCategoryId)
-                .select(Category::getId, Category::getCategoryName);
+                .select(Category::getId, Category::getCategoryName, Category::getCategoryLevel);
         //  获取子目录
         List<Category> subCategories = categoryMapper.selectList(wrapper);
         List<CategoryDTO> categoryDTOS = subCategories.stream()
@@ -148,6 +171,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         CategoryDTO dto = new CategoryDTO();
         dto.setId(category.getId());
         dto.setCategoryName(category.getCategoryName());
+        dto.setCategoryLevel(category.getCategoryLevel());
         return dto;
     }
 }

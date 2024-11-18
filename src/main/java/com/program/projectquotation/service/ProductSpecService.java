@@ -15,7 +15,7 @@ import java.util.Map;
 public interface ProductSpecService extends IService<ProductSpec> {
     public List<Map<String,String>> getProductSpec(int productId);
 
-    public Result createProductSpec(ProductSpec productSpec);
+    public Result createProductSpec(List<ProductSpec> productSpecs);
 
     public Result updateProductSpec(ProductSpec productSpec,String oldSpecName);
 
@@ -23,4 +23,7 @@ public interface ProductSpecService extends IService<ProductSpec> {
 
     //批量删除
     public Result deleteProductSpecBatch(int productId);
+
+    //获取最高最低规格信息
+    public Map<String,String> getMaxMinSpec(int productId);
 }

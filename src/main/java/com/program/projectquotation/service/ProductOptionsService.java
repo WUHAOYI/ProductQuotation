@@ -15,7 +15,7 @@ import java.util.Map;
 public interface ProductOptionsService extends IService<ProductOptions> {
     public List<Map<String,String>> getProductOptions(int productId);
 
-    public Result createProductOptions(ProductOptions productOptions);
+    public Result createProductOptions(List<ProductOptions> productOptions);
 
     public Result updateProductOptions(ProductOptions productOptions,String oldOptionName);
 

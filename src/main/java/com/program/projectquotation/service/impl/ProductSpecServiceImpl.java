@@ -10,6 +10,7 @@ import com.program.projectquotation.service.ProductSpecService;
 import com.program.projectquotation.mapper.ProductSpecMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @createDate 2024-10-01 17:19:54
  */
 @Service
+@Transactional
 public class ProductSpecServiceImpl extends ServiceImpl<ProductSpecMapper, ProductSpec>
         implements ProductSpecService {
 
@@ -52,22 +54,21 @@ public class ProductSpecServiceImpl extends ServiceImpl<ProductSpecMapper, Produ
     }
 
     /**
-     * 创建商品规格信息
+     * 批量创建商品规格信息
      *
-     * @param productSpec
+     * @param productSpecs
      * @return
      */
     @Override
-    public Result createProductSpec(ProductSpec productSpec) {
-
+    public Result createProductSpec(List<ProductSpec> productSpecs) {
         try {
-            int insert = productSpecMapper.insert(productSpec);
-            if (insert == 0) {
+            boolean saved = saveBatch(productSpecs);
+            if (!saved) {
                 return Result.build(null, ResultCodeEnum.CREATE_PRODUCT_SPEC_ERROR);
             }
             return Result.build(null, ResultCodeEnum.CREATE_PRODUCT_SPEC_SUCCESS);
         } catch (Exception e) {
-            log.error("create Product Spec error", e);
+            log.error("create Product Specs error", e);
             return Result.build(null, ResultCodeEnum.CREATE_PRODUCT_SPEC_ERROR);
         }
     }
@@ -121,10 +122,36 @@ public class ProductSpecServiceImpl extends ServiceImpl<ProductSpecMapper, Produ
             if (!remove) {
                 return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_SPEC_ERROR);
             }
+            System.out.println("delete productSpec success");
             return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_SPEC_SUCCESS);
         } catch (Exception e) {
             log.error("delete Product Specs error when delete product", e);
             return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_SPEC_ERROR);
+        }
+    }
+
+    /**
+     * 获取最高最低规格信息
+     * @param productId
+     * @return
+     */
+    @Override
+    public Map<String, String> getMaxMinSpec(int productId) {
+        LambdaQueryWrapper<ProductSpec> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ProductSpec::getProductId, productId);
+        wrapper.orderByAsc(ProductSpec::getProductSpecValue);
+        try {
+            List<ProductSpec> productSpecs = productSpecMapper.selectList(wrapper);
+            if (productSpecs == null || productSpecs.isEmpty()) {
+                return null;
+            }
+            Map<String, String> res = new HashMap<>();
+            res.put("min", productSpecs.get(0).getProductSpecValue());
+            res.put("max", productSpecs.get(productSpecs.size() - 1).getProductSpecValue());
+            return res;
+        } catch (Exception e) {
+            log.error("get Max Min Spec error", e);
+            return null;
         }
     }
 }

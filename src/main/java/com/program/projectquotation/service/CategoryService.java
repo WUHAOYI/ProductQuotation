@@ -4,6 +4,8 @@ import com.program.projectquotation.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.program.projectquotation.result.Result;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【category(商品目录)】的数据库操作Service
@@ -11,6 +13,8 @@ import com.program.projectquotation.result.Result;
 */
 public interface CategoryService extends IService<Category> {
     public Result getAllCategories();
+
+    public List<Category> getCategoriesById(int id);
 
     public Result createCategory(Category category);
 
