@@ -98,6 +98,7 @@ public class ProductController {
             List<Map<String,String>> productOptions = productOptionsService.getProductOptions(productId);
             res.put("id", product.getId());
             res.put("name", product.getProductName());
+            res.put("categoryId", product.getCategoryId());
             res.put("lowPrice", product.getProductLowPrice());
             res.put("highPrice", product.getProductHighPrice());
             res.put("description", product.getProductIntro());
@@ -166,7 +167,7 @@ public class ProductController {
      */
     @PutMapping
     public Result updateProduct(@RequestParam("productId") Integer productId,
-//                                @RequestParam("categoryId") Integer categoryId,
+                                @RequestParam("categoryId") Integer categoryId,
                                 @RequestParam("productName") String productName,
                                 @RequestParam("productLowPrice") Double productLowPrice,
                                 @RequestParam("productHighPrice") Double productHighPrice,
@@ -174,7 +175,7 @@ public class ProductController {
                                 @RequestPart(required = false) MultipartFile image) {
         Product product = new Product();
         product.setId(productId);
-//        product.setCategoryId(categoryId);
+        product.setCategoryId(categoryId);
         product.setProductName(productName);
         product.setProductLowPrice(BigDecimal.valueOf(productLowPrice));
         product.setProductHighPrice(BigDecimal.valueOf(productHighPrice));
