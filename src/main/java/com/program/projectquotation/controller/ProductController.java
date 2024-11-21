@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -144,7 +146,8 @@ public class ProductController {
         try {
             byte[] bytes = image.getBytes();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String fileName = timestamp.getTime() + "_avatar_product_" + productName + ".png";
+            UUID uuid = UUID.randomUUID();
+            String fileName = timestamp.getTime() + "-avatar-product-" + uuid + ".png";
             SSHUtils.sftp(bytes, fileName, "images");
             product.setProductAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
         } catch (Exception e) {
@@ -186,7 +189,8 @@ public class ProductController {
             try {
                 byte[] bytes = image.getBytes();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                String fileName = timestamp.getTime() + "_avatar_product_" + productName + ".png";
+                UUID uuid = UUID.randomUUID();
+                String fileName = timestamp.getTime() + "-avatar-product-" + uuid + ".png";
                 SSHUtils.sftp(bytes, fileName, "images");
                 product.setProductAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
             } catch (Exception e) {
@@ -228,7 +232,7 @@ public class ProductController {
                 byte[] bytes = image.getBytes();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-                String fileName = timestamp.getTime() + "_product" + productId + ".png";
+                String fileName = timestamp.getTime() + "-product" + productId + ".png";
                 SSHUtils.sftp(bytes, fileName, "images");
 
                 ProductDetail productDetail = new ProductDetail();

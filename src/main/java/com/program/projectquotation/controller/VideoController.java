@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Created by WHY on 2024/10/1.
@@ -58,7 +59,8 @@ public class VideoController {
         try {
             byte[] bytes = videoFile.getBytes();
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String fileLink = timestamp.getTime() + "_" + fileName + ".mp4";
+            UUID uuid = UUID.randomUUID();
+            String fileLink = timestamp.getTime() + "-" + uuid + ".mp4";
             SSHUtils.sftp(bytes, fileLink, "videos");
             return videoService.uploadVideo(fileName, StaticParamsCommon.IMAGES_VIDEOS_PATH + fileLink);
         } catch (Exception e) {
