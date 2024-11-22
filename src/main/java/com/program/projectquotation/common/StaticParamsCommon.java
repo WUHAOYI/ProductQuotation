@@ -15,5 +15,9 @@ public class StaticParamsCommon {
     public static final String PRIVATE_KEY = "src/main/resources/static/key/Project.pem";
     public static final int PORT = 22;
     public static final String FILE_PATH = "/opt/resources/";
-    public static final String IMAGES_VIDEOS_PATH = "http://47.121.176.15:8888/";
+    //    public static final String IMAGES_VIDEOS_PATH = "http://47.121.176.15:8888/";
+    public static final String IMAGES_VIDEOS_PATH = "http://ljwzcc2.tpddns.cn:8888/";
+//    public static final String IMAGES_VIDEOS_PATH = "http://localhost:8888/";
+
+
 }

@@ -9,6 +9,7 @@ import com.program.projectquotation.result.Result;
 import com.program.projectquotation.result.ResultCodeEnum;
 import com.program.projectquotation.service.VideoService;
 import com.program.projectquotation.mapper.VideoMapper;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,7 +98,8 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video>
         String videoLink = selected.getVideoLink();
         String videoName = videoLink.split("//")[1].split("/")[1];
         try {
-            SSHUtils.deleteFile(videoName, "videos");
+            LocalFileUtils.deleteLocalFile(videoName, "videos");
+//            SSHUtils.deleteFile(videoName, "videos");
         } catch (Exception e) {
             log.error("delete video error", e);
         }

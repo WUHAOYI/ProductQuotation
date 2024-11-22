@@ -10,6 +10,7 @@ import com.program.projectquotation.result.ResultCodeEnum;
 import com.program.projectquotation.service.NewdateuntilnowService;
 import com.program.projectquotation.service.ProductService;
 import com.program.projectquotation.mapper.ProductMapper;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -308,7 +309,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         String productAvatar = selected.getProductAvatar();
         String name = productAvatar.split("//")[1].split("/")[1];
         try {
-            SSHUtils.deleteFile(name, "images");
+            LocalFileUtils.deleteLocalFile(name, "images");
+//            SSHUtils.deleteFile(name, "images");
         } catch (Exception e) {
             log.error("delete avatar error", e);
         }

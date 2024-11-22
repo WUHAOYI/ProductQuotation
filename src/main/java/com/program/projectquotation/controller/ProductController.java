@@ -11,6 +11,7 @@ import com.program.projectquotation.service.ProductDetailService;
 import com.program.projectquotation.service.ProductOptionsService;
 import com.program.projectquotation.service.ProductService;
 import com.program.projectquotation.service.ProductSpecService;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,7 +149,9 @@ public class ProductController {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             UUID uuid = UUID.randomUUID();
             String fileName = timestamp.getTime() + "-avatar-product-" + uuid + ".png";
-            SSHUtils.sftp(bytes, fileName, "images");
+            // 上传图片到本地
+             LocalFileUtils.saveToLocal(bytes, fileName, "images");
+//            SSHUtils.sftp(bytes, fileName, "images");
             product.setProductAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
         } catch (Exception e) {
             log.error("getVideos error", e);
@@ -191,7 +194,9 @@ public class ProductController {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 UUID uuid = UUID.randomUUID();
                 String fileName = timestamp.getTime() + "-avatar-product-" + uuid + ".png";
-                SSHUtils.sftp(bytes, fileName, "images");
+                // 上传图片到本地
+                LocalFileUtils.saveToLocal(bytes, fileName, "images");
+//                SSHUtils.sftp(bytes, fileName, "images");
                 product.setProductAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
             } catch (Exception e) {
                 log.error("getVideos error", e);
@@ -233,7 +238,9 @@ public class ProductController {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
                 String fileName = timestamp.getTime() + "-product" + productId + ".png";
-                SSHUtils.sftp(bytes, fileName, "images");
+                // 上传图片到本地
+                LocalFileUtils.saveToLocal(bytes, fileName, "images");
+//                SSHUtils.sftp(bytes, fileName, "images");
 
                 ProductDetail productDetail = new ProductDetail();
                 productDetail.setProductDetailName(fileName);
@@ -256,7 +263,8 @@ public class ProductController {
         int productId = (Integer) data.get("productId");
         String imageName = (String) data.get("imageName");
         try {
-            SSHUtils.deleteFile(imageName, "images");
+            LocalFileUtils.deleteLocalFile(imageName, "images");
+//            SSHUtils.deleteFile(imageName, "images");
         } catch (Exception e) {
             log.error("delete product image error", e);
             return Result.build(null, ResultCodeEnum.DELETE_PRODUCT_IMAGE_ERROR);

@@ -7,6 +7,7 @@ import com.program.projectquotation.result.Result;
 import com.program.projectquotation.result.ResultCodeEnum;
 import com.program.projectquotation.service.ProductDetailService;
 import com.program.projectquotation.mapper.ProductDetailMapper;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -110,7 +111,8 @@ public class ProductDetailServiceImpl extends ServiceImpl<ProductDetailMapper, P
         productDetailMapper.selectList(wrapper).forEach(productDetail -> {
             String productDetailName = productDetail.getProductDetailName();
             try {
-                SSHUtils.deleteFile(productDetailName, "images");
+                LocalFileUtils.deleteLocalFile(productDetailName, "images");
+//                SSHUtils.deleteFile(productDetailName, "images");
             } catch (Exception e) {
                 log.error("delete images error when delete product", e);
             }

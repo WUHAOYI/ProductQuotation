@@ -5,6 +5,7 @@ import com.program.projectquotation.pojo.Video;
 import com.program.projectquotation.result.Result;
 import com.program.projectquotation.result.ResultCodeEnum;
 import com.program.projectquotation.service.VideoService;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +62,8 @@ public class VideoController {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             UUID uuid = UUID.randomUUID();
             String fileLink = timestamp.getTime() + "-" + uuid + ".mp4";
-            SSHUtils.sftp(bytes, fileLink, "videos");
+            LocalFileUtils.saveToLocal(bytes, fileLink, "videos");
+//            SSHUtils.sftp(bytes, fileLink, "videos");
             return videoService.uploadVideo(fileName, StaticParamsCommon.IMAGES_VIDEOS_PATH + fileLink);
         } catch (Exception e) {
             log.error("getVideos error", e);

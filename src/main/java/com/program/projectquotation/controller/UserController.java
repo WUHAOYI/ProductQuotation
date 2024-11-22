@@ -5,6 +5,7 @@ import com.program.projectquotation.pojo.User;
 import com.program.projectquotation.result.Result;
 import com.program.projectquotation.result.ResultCodeEnum;
 import com.program.projectquotation.service.UserService;
+import com.program.projectquotation.utils.LocalFileUtils;
 import com.program.projectquotation.utils.SSHUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Created by WHY on 2024/9/14.
@@ -50,8 +52,10 @@ public class UserController {
             try {
                 byte[] bytes = avatarFile.getBytes();
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                fileName = timestamp.getTime() + "_" + fileName + ".png";
-                SSHUtils.sftp(bytes, fileName, "images");
+                UUID uuid = UUID.randomUUID();
+                fileName = timestamp.getTime() + "-user-" + uuid + ".png";
+                LocalFileUtils.saveToLocal(bytes, fileName, "images");
+//                SSHUtils.sftp(bytes, fileName, "images");
                 user.setAvatar(StaticParamsCommon.IMAGES_VIDEOS_PATH + fileName);
                 return userService.updateUserInfo(user);
             } catch (Exception e) {

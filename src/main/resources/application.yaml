@@ -8,15 +8,23 @@ spring:
     multipart:
       max-file-size: 1GB
       max-request-size: 1GB
+#  web:
+#    resources:
+#      static-locations: classpath:/static/,file:/opt/resources/images/,file:/opt/resources/videos/
   web:
     resources:
-      static-locations: classpath:/static/,file:/opt/resources/images/,file:/opt/resources/videos/
+      static-locations: classpath:/static/,file:X:/JavaData/images/,file:X:/JavaData/videos/
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      url: jdbc:mysql://47.121.176.15:3306/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
+#      username: root
+#      password: why666
+#      driver-class-name: com.mysql.jdbc.Driver
     druid:
-      url: jdbc:mysql://47.121.176.15:3306/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
+      url: jdbc:mysql://ljwzcc2.tpddns.cn:3306/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
       username: root
-      password: why666
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
 
 # mybatis-plus???
