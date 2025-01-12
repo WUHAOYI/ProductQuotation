@@ -13,7 +13,7 @@ spring:
 #      static-locations: classpath:/static/,file:/opt/resources/images/,file:/opt/resources/videos/
   web:
     resources:
-      static-locations: classpath:/static/,file:X:/JavaData/images/,file:X:/JavaData/videos/
+      static-locations: classpath:/static/,file:D:/JavaData/images/,file:D:/JavaData/videos/
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
 #    druid:
@@ -22,9 +22,9 @@ spring:
 #      password: why666
 #      driver-class-name: com.mysql.jdbc.Driver
     druid:
-      url: jdbc:mysql://ljwzcc2.tpddns.cn:3306/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
+      url: jdbc:mysql://ljwzcc2.tpddns.cn:3308/product_quotation?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;allowPublicKeyRetrieval=true
       username: root
-      password: 123456
+      password: ljwzcc2024
       driver-class-name: com.mysql.jdbc.Driver
 
 # mybatis-plus???
@@ -34,3 +34,8 @@ mybatis-plus:
 #    auto-mapping-behavior: NONE
 #    call-setters-on-nulls: true
   type-aliases-package: com.why.pojo
+
+# 微信登陆参数
+wechat:
+  appid: wx903211995fdafd16
+  secret: 8aaf7f111328ca939557a9932c408ca8

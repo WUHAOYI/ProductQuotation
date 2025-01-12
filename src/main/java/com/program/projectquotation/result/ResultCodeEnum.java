@@ -27,14 +27,18 @@ public enum ResultCodeEnum {
     CREATE_PRODUCT_OPTIONS_SUCCESS(20020,"创建商品选项成功"),
     DELETE_PRODUCT_OPTIONS_SUCCESS(20021,"删除商品选项成功"),
     UPDATE_PRODUCT_OPTIONS_SUCCESS(20022,"更新商品选项成功"),
-
     DELETE_VIDEO_SUCCESS(20023,"删除视频成功"),
     TIME_UPDATE_SUCCESS(20024,"上新时间更新成功"),
+    ADD_ALLOWED_USER_SUCCESS(20025,"新增允许登录的用户成功"),
+    GET_ALLOWED_USER_SUCCESS(20026,"查询所有已授权用户成功"),
+    DELETE_ALLOWED_USER_SUCCESS(20027,"删除已授权用户成功"),
+    ADD_ALLOWED_USER_BATCH_SUCCESS(20028,"批量新增允许登录的用户成功"),
 
     USER_NOT_FOUND(40000, "用户不存在"),
     VIDEO_NOT_FOUND(40002, "视频不存在"),
     PRODUCT_NOT_FOUND(40008, "暂无相关商品"),
     ORDER_NOT_FOUND(40011, "商品详情不存在"),
+    ALLOWED_USER_NOT_FOUND(40026,"暂无已授权用户"),
 
     GET_USER_ERROR(50000, "获取用户信息失败"),
     UPDATE_USER_ERROR(50001,"用户信息更新失败"),
@@ -59,9 +63,12 @@ public enum ResultCodeEnum {
     CREATE_PRODUCT_OPTIONS_ERROR(50020,"创建商品选项失败"),
     DELETE_PRODUCT_OPTIONS_ERROR(50021,"删除商品选项失败"),
     UPDATE_PRODUCT_OPTIONS_ERROR(50022,"更新商品选项失败"),
-
     DELETE_VIDEO_ERROR(50023,"删除视频失败"),
     TIME_UPDATE_ERROR(50024,"上新时间更新失败"),
+    ADD_ALLOWED_USER_ERROR(50025,"新增允许登录的用户失败"),
+    GET_ALLOWED_USER_ERROR(50026,"查询所有已授权用户失败"),
+    DELETE_ALLOWED_USER_ERROR(50027,"删除已授权用户失败"),
+    ADD_ALLOWED_USER_BATCH_ERROR(50028,"批量新增允许登录的用户失败"),
     ;
     private Integer code;
     private String message;

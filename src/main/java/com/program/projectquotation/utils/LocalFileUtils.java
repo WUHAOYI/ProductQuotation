@@ -20,7 +20,8 @@ public class LocalFileUtils {
      */
     public static void saveToLocal(byte[] fileBytes, String fileName, String type) throws Exception {
         // 定义本地保存文件的路径
-        String basePath = "X:/JavaData/";
+//        String basePath = "X:/JavaData/";
+        String basePath = "D:/JavaData/";
         String filePath = basePath + type;
 
         // 创建目录（如果不存在）
@@ -49,7 +50,8 @@ public class LocalFileUtils {
      */
     public static void deleteLocalFile(String fileName, String type) throws Exception {
         // 定义本地文件路径
-        String basePath = "X:/JavaData/";
+//        String basePath = "X:/JavaData/";
+        String basePath = "D:/JavaData/";
         String filePath = basePath + type + "/" + fileName;
 
         File file = new File(filePath);
