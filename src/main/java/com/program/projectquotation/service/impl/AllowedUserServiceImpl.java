@@ -28,15 +28,6 @@ public class AllowedUserServiceImpl extends ServiceImpl<AllowedUserMapper, Allow
     @Autowired
     private AllowedUserMapper allowedUserMapper;
 
-    @Autowired
-    private RestTemplate restTemplate;
-
-    @Value("${wechat.appid}")
-    private String appId;
-
-    @Value("${wechat.secret}")
-    private String appSecret;
-
     @Override
     public Result addAllowedUser(AllowedUser allowedUser) {
         try {

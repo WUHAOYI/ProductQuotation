@@ -35,7 +35,3 @@ mybatis-plus:
 #    call-setters-on-nulls: true
   type-aliases-package: com.why.pojo
 
-# 微信登陆参数
-wechat:
-  appid: wx903211995fdafd16
-  secret: 8aaf7f111328ca939557a9932c408ca8
